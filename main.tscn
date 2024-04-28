@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c52paex865vvi"]
+
+[ext_resource type="PackedScene" uid="uid://1igt5xjwlmfn" path="res://card.tscn" id="1_ifhmq"]
+[ext_resource type="Script" path="res://Label.gd" id="2_snxs0"]
+
+[node name="Main" type="Node2D"]
+
+[node name="card" parent="." instance=ExtResource("1_ifhmq")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 356.0
+offset_top = 4.0
+offset_right = 476.0
+offset_bottom = 157.0
+text = "card position:
+%s
+mouse position
+%s
+flipped
+%s"
+script = ExtResource("2_snxs0")
+
+[connection signal="card_flipped" from="card" to="Label" method="_on_card_card_flipped"]
+[connection signal="position_changed" from="card" to="Label" method="_on_card_position_changed"]

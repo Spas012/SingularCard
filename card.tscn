@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://1igt5xjwlmfn"]
+
+[ext_resource type="Texture2D" uid="uid://da2a2fe3ssq47" path="res://Cards (large)/card_back.png" id="2_dsc2u"]
+[ext_resource type="Script" path="res://card.gd" id="3_daftw"]
+[ext_resource type="Texture2D" uid="uid://b5pb2jh0r87fx" path="res://Cards (large)/card_clubs_02.png" id="3_xn66h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5isvj"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dsc2u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xn66h")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33tyx"]
+size = Vector2(80, 117)
+
+[node name="card" type="StaticBody2D"]
+position = Vector2(243, 245)
+scale = Vector2(1.5, 1.5)
+collision_layer = 3
+input_pickable = true
+script = ExtResource("3_daftw")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5isvj")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_33tyx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

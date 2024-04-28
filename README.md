@@ -1,2 +1,1 @@
-# SingularCard
- 1 card game
+# singular-card-game
